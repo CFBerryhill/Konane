@@ -18,3 +18,12 @@ class RandomAgent(Agent):
 
 class MiniMaxAgent(Agent):
     "an agent that searches for moves with minimax"
+
+    def MiniMax(self, board):
+        ""
+
+    def Maximize(self, board):
+        ""
+
+    def Minimize(self, board):
+        ""
