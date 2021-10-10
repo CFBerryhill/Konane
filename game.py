@@ -1,9 +1,17 @@
-# coding=utf-8
-# This is a sample Python script.
+import sys
+import inspect
+import heapq, random
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+class Agent:
+  def __init__(self, index=0):
+    self.index = index
 
+  def getMove(self, board):
+      raiseNotDefined()
+
+def raiseNotDefined():
+  print "Method not implemented: %s" % inspect.stack()[1][3]
+  sys.exit(1)
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
