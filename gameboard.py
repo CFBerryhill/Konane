@@ -35,3 +35,12 @@ class GameBoard:
 
     def validMoves(self, board, Plaer):
         ""
+
+    def toString(self, board):
+        ""
+
+    def GameOver(self, board):
+        ""
+
+    def GenerateSuccessors(self, board):
+        ""
