@@ -13,10 +13,10 @@ class Move:
         self.dir = dir
         self.jumps = jumps
 
-        directions = {Directions.NORTH: (0, 2),
-                      Directions.SOUTH: (0, -2),
-                      Directions.EAST: (2, 0),
-                      Directions.WEST: (-2, 0)}
+    directions = {Directions.NORTH: (0, 2),
+                  Directions.SOUTH: (0, -2),
+                  Directions.EAST: (2, 0),
+                  Directions.WEST: (-2, 0)}
 
 class GameBoard:
 
