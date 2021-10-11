@@ -37,8 +37,8 @@ class GameBoard:
     def __getitem__(self, tile):
         return self.board[tile[0]][tile[1]]
 
-    def __setitem__(self, key, item):
-        self.data[key] = item
+    def __setitem__(self, tile, item):
+        self.board[tile[0]][tile[1]] = item
 
     def removeTile(self, tile):
         self.__setitem__(tile,0)
