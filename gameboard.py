@@ -17,6 +17,9 @@ class Move:
                   Directions.EAST: (2, 0),
                   Directions.WEST: (-2, 0)}
 
+    def move(self):
+        ""
+
     def toString(self):
         return "(" + str(self.tile[0]+1) + ", " + str(self.tile[1]+1) + "), " + str(self.dir) + ", " + str(self.jumps)
 
@@ -47,8 +50,8 @@ class GameBoard:
         color = self.__getitem__(move.tile)
         self.removeTile(move.tile)          # sets start to 0
         for i in range(2 * move.jumps):     # remove all pieces in between start and end
-            self.removeTile(move.tile + (i * move.dir))
-        self.__setitem__((move.tile + (move.jumps * move.dir)), color)
+            self.removeTile(move.tile + (i * Move.directions[move.dir]))
+        self.__setitem__((move.tile + (move.jumps * Move.directions[move.dir])), color)
         return self
 
     def copy(self):

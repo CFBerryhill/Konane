@@ -26,7 +26,7 @@ def raiseNotDefined():
 if __name__ == '__main__':
 
     board = GameBoard()
-    print board.toString()
+    print(board.toString())
 
     random1 = RandomAgent(1)
     random2 = RandomAgent(2)
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     tile2 = random2.getStartingRemoval(board, tile)
     board.removeTile(tile2)
 
-    print board.toString()
+    print(board.toString())
 
     turncnt = 0
     while not board.gameOver():
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         else:
             move = random1.getMove(board)
             board.fooBoard(move)
-        print board.toString()
+        print(board.toString())
         turncnt += 1
 
 

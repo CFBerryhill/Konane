@@ -22,7 +22,7 @@ class HumanAgent(Agent):
         if tile is (1, 1) or (4, 4) or (5, 5) or (8, 8):
             return (tile[0] - 1, tile[1] - 1)
         else:
-            print "invalid option"
+            print("invalid option")
             self.getStartingRemoval(board)
 
 
@@ -47,6 +47,7 @@ class RandomAgent(Agent):
                 validoptions.append((tile[0], tile[1] - 1))
             if tile[1] + 1 <= 7:
                 validoptions.append((tile[0], tile[1] + 1))
+            print("TESTTTTT:    " + str(validoptions[randrange(0, len(validoptions))]))
             return validoptions[randrange(0, len(validoptions))]
 
 
