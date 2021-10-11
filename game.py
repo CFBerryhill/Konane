@@ -1,5 +1,6 @@
 import sys
 import inspect
+from agents import *
 from gameboard import *
 
 import heapq, random
@@ -11,21 +12,45 @@ class Agent:
   def getMove(self, board):
       raiseNotDefined()
 
+  def getStartingRemoval(self, board, bool):
+      raiseNotDefined()
+
 def raiseNotDefined():
   print("Method not implemented: %s" % inspect.stack()[1][3])
   sys.exit(1)
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print("Hi, {0}".format(name))  # Press ⌘F8 to toggle the breakpoint.
 
 #HI PAUL!!!
 #Hi CASEY!!!
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
 
     board = GameBoard()
+    print board.toString()
+
+    random1 = RandomAgent(1)
+    random2 = RandomAgent(2)
+
+    #remove starting tokens
+    tile = random1.getStartingRemoval(board, (-1, -1))
+    board.removeTile(tile)
+    tile2 = random2.getStartingRemoval(board, tile)
+    board.removeTile(tile2)
+
+    print board.toString()
+
+    turncnt = 0
+    while not board.gameOver():
+        if turncnt % 2 == 0:
+            move = random2.getMove(board)
+            board.fooBoard(move)
+        else:
+            move = random1.getMove(board)
+            board.fooBoard(move)
+        print board.toString()
+        turncnt += 1
+
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
