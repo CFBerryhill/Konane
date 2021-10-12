@@ -12,7 +12,7 @@ class Agent:
   def getMove(self, board):
       raiseNotDefined()
 
-  def getStartingRemoval(self, board, bool):
+  def getStartingRemoval(self, board, tile):
       raiseNotDefined()
 
 def raiseNotDefined():
@@ -28,26 +28,27 @@ if __name__ == '__main__':
     board = GameBoard()
     print(board.toString())
 
-    random1 = RandomAgent(1)
-    random2 = RandomAgent(2)
+    agent1 = HumanAgent(1)
+    agent2 = RandomAgent(2)
 
     #remove starting tokens
-    tile = random1.getStartingRemoval(board, (-1, -1))
+    empty = (-1,-1)
+    tile = agent1.getStartingRemoval(board, empty)
     board.removeTile(tile)
-    tile2 = random2.getStartingRemoval(board, tile)
+    tile2 = agent2.getStartingRemoval(board, tile)
     board.removeTile(tile2)
 
     print(board.toString())
 
-    turncnt = 0
+    turncnt = 1
     while not board.gameOver():
         print turncnt % 2 + 1, " players turn"
         if turncnt % 2 == 0:
-            move = random2.getMove(board)
+            move = agent2.getMove(board)
             board.fooBoard(move)
             print move.toString()
         else:
-            move = random1.getMove(board)
+            move = agent1.getMove(board)
             board.fooBoard(move)
             print move.toString()
         print(board.toString())

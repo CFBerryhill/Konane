@@ -17,6 +17,13 @@ class Move:
                   Directions.EAST: (2, 0),
                   Directions.WEST: (-2, 0)}
 
+    def __eq__(self, other):
+        return other.tile[0] == self.tile[0] and \
+               other.tile[1] == self.tile[1] and \
+               other.dir[0] == self.dir[0] and \
+               other.dir[1] == self.dir[1] and \
+               other.jumps == self.jumps
+
     def move(self):
         ""
 
@@ -77,7 +84,7 @@ class GameBoard:
                     while y-2 in range(0, self.height) and \
                             self.board[x][y - 2] is 0 and \
                             (self.board[x][y - 1] is not player_index and self.board[x][y - 1] is not 0):
-                        validmoves.append(Move((r, c), 'North', jump))
+                        validmoves.append(Move((r, c), Move.directions['North'], jump))
                         y = y - 2
                         jump += 1
                     # reset x,y , jump
@@ -88,7 +95,7 @@ class GameBoard:
                     while x+2 in range(0, self.width) and \
                             self.board[x + 2][y] is 0 and \
                             (self.board[x + 1][y] is not player_index and self.board[x + 1][y] is not 0):
-                        validmoves.append(Move((r, c), 'East', jump))
+                        validmoves.append(Move((r, c), Move.directions['East'], jump))
                         x = x + 2
                         jump += 1
                     # reset x,y ,  jump
@@ -99,7 +106,7 @@ class GameBoard:
                     while y+2 in range(0, self.height) and \
                             self.board[x][y + 2] is 0 and \
                             (self.board[x][y + 1] is not player_index and self.board[x][y + 1] is not 0):
-                        validmoves.append(Move((r, c), 'South', jump))
+                        validmoves.append(Move((r, c), Move.directions['South'], jump))
                         y = y + 2
                         jump += 1
                     # reset x, y, jump
@@ -110,7 +117,7 @@ class GameBoard:
                     while x-2 in range(0, self.width) and \
                             self.board[x - 2][y] is 0 and \
                             (self.board[x - 1][y] is not player_index and self.board[x - 1][y] is not 0):
-                        validmoves.append(Move((r, c), 'West', jump))
+                        validmoves.append(Move((r, c), Move.directions['West'], jump))
                         x = x - 2
                         jump += 1
         return validmoves
