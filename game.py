@@ -41,6 +41,7 @@ if __name__ == '__main__':
 
     turncnt = 0
     while not board.gameOver():
+        print turncnt % 2 + 1, " players turn"
         if turncnt % 2 == 0:
             move = random2.getMove(board)
             board.fooBoard(move)

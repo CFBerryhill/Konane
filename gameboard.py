@@ -74,7 +74,9 @@ class GameBoard:
                     # jump counter
                     jump = 1
                     # check N
-                    while y-2 in range(0, self.height) and self.board[x][y - 2] is 0:
+                    while y-2 in range(0, self.height) and \
+                            self.board[x][y - 2] is 0 and \
+                            (self.board[x][y - 1] is not player_index and self.board[x][y - 1] is not 0):
                         validmoves.append(Move((r, c), 'North', jump))
                         y = y - 2
                         jump += 1
@@ -83,7 +85,9 @@ class GameBoard:
                     y = c
                     jump = 1
                     # check E
-                    while x+2 in range(0, self.width) and self.board[x + 2][y] is 0:
+                    while x+2 in range(0, self.width) and \
+                            self.board[x + 2][y] is 0 and \
+                            (self.board[x + 1][y] is not player_index and self.board[x + 1][y] is not 0):
                         validmoves.append(Move((r, c), 'East', jump))
                         x = x + 2
                         jump += 1
@@ -92,7 +96,9 @@ class GameBoard:
                     y = c
                     jump = 1
                     # check S
-                    while y+2 in range(0, self.height) and self.board[x][y + 2] is 0:
+                    while y+2 in range(0, self.height) and \
+                            self.board[x][y + 2] is 0 and \
+                            (self.board[x][y + 1] is not player_index and self.board[x][y + 1] is not 0):
                         validmoves.append(Move((r, c), 'South', jump))
                         y = y + 2
                         jump += 1
@@ -101,7 +107,9 @@ class GameBoard:
                     y = c
                     jump = 1
                     # check W
-                    while x-2 in range(0, self.width) and self.board[x - 2][y] is 0:
+                    while x-2 in range(0, self.width) and \
+                            self.board[x - 2][y] is 0 and \
+                            (self.board[x - 1][y] is not player_index and self.board[x - 1][y] is not 0):
                         validmoves.append(Move((r, c), 'West', jump))
                         x = x - 2
                         jump += 1
