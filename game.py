@@ -44,9 +44,11 @@ if __name__ == '__main__':
         if turncnt % 2 == 0:
             move = random2.getMove(board)
             board.fooBoard(move)
+            print move.toString()
         else:
             move = random1.getMove(board)
             board.fooBoard(move)
+            print move.toString()
         print(board.toString())
         turncnt += 1
 

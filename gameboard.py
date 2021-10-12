@@ -44,14 +44,17 @@ class GameBoard:
         self.board[tile[0]][tile[1]] = item
 
     def removeTile(self, tile):
-        self.__setitem__(tile,0)
+        self.__setitem__(tile, 0)
 
     def fooBoard(self, move):
         color = self.__getitem__(move.tile)
         self.removeTile(move.tile)          # sets start to 0
-        for i in range(2 * move.jumps):     # remove all pieces in between start and end
-            self.removeTile(move.tile + (i * Move.directions[move.dir]))
-        self.__setitem__((move.tile + (move.jumps * Move.directions[move.dir])), color)
+        for i in range(move.jumps + 1):     # remove all pieces in between start and end
+            removetile = (move.tile[0] + ((Move.directions[move.dir][0])/2 * i),
+                       move.tile[1] + ((Move.directions[move.dir][1])/2) * i)
+            self.removeTile(removetile)
+        newtile = (move.tile[0] + (move.jumps * Move.directions[move.dir])[0], move.tile[1] + (move.jumps * Move.directions[move.dir])[1])
+        self.__setitem__(newtile, color)
         return self
 
     def copy(self):
