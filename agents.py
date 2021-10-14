@@ -13,9 +13,9 @@ class HumanAgent(Agent):
         try:
             Move.directions[dir]
         except KeyError:
-            print "invalid input"
+            print "invalid direction"
             self.getMove(board)
-        move = Move(tile, Move.directions[dir], jumps)
+        move = Move((tile[0]-1, tile[1]-1), Move.directions[dir], jumps)
         validmoves = board.validMoves(self.index)
         if move in validmoves:
             return move

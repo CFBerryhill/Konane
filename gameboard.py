@@ -12,10 +12,10 @@ class Move:
         self.dir = dir
         self.jumps = jumps
 
-    directions = {Directions.NORTH: (0, -2),
-                  Directions.SOUTH: (0, 2),
-                  Directions.EAST: (2, 0),
-                  Directions.WEST: (-2, 0)}
+    directions = {Directions.NORTH: (-2, 0),
+                  Directions.SOUTH: (2, 0),
+                  Directions.EAST: (0, 2),
+                  Directions.WEST: (0, -2)}
 
     def __eq__(self, other):
         return other.tile[0] == self.tile[0] and \
@@ -57,10 +57,10 @@ class GameBoard:
         color = self.__getitem__(move.tile)
         self.removeTile(move.tile)          # sets start to 0
         for i in range(move.jumps + 1):     # remove all pieces in between start and end
-            removetile = (move.tile[0] + ((Move.directions[move.dir][0])/2 * i),
-                       move.tile[1] + ((Move.directions[move.dir][1])/2) * i)
+            removetile = (move.tile[0] + ((move.dir[0])/2 * i),
+                       move.tile[1] + ((move.dir[1])/2) * i)
             self.removeTile(removetile)
-        newtile = (move.tile[0] + (move.jumps * Move.directions[move.dir])[0], move.tile[1] + (move.jumps * Move.directions[move.dir])[1])
+        newtile = (move.tile[0] + (move.jumps * move.dir[0]), move.tile[1] + (move.jumps * move.dir[1]))
         self.__setitem__(newtile, color)
         return self
 
@@ -84,7 +84,7 @@ class GameBoard:
                     while y-2 in range(0, self.height) and \
                             self.board[x][y - 2] is 0 and \
                             (self.board[x][y - 1] is not player_index and self.board[x][y - 1] is not 0):
-                        validmoves.append(Move((r, c), Move.directions['North'], jump))
+                        validmoves.append(Move((r, c), Move.directions['West'], jump))
                         y = y - 2
                         jump += 1
                     # reset x,y , jump
@@ -95,7 +95,7 @@ class GameBoard:
                     while x+2 in range(0, self.width) and \
                             self.board[x + 2][y] is 0 and \
                             (self.board[x + 1][y] is not player_index and self.board[x + 1][y] is not 0):
-                        validmoves.append(Move((r, c), Move.directions['East'], jump))
+                        validmoves.append(Move((r, c), Move.directions['South'], jump))
                         x = x + 2
                         jump += 1
                     # reset x,y ,  jump
@@ -106,7 +106,7 @@ class GameBoard:
                     while y+2 in range(0, self.height) and \
                             self.board[x][y + 2] is 0 and \
                             (self.board[x][y + 1] is not player_index and self.board[x][y + 1] is not 0):
-                        validmoves.append(Move((r, c), Move.directions['South'], jump))
+                        validmoves.append(Move((r, c), Move.directions['East'], jump))
                         y = y + 2
                         jump += 1
                     # reset x, y, jump
@@ -117,7 +117,7 @@ class GameBoard:
                     while x-2 in range(0, self.width) and \
                             self.board[x - 2][y] is 0 and \
                             (self.board[x - 1][y] is not player_index and self.board[x - 1][y] is not 0):
-                        validmoves.append(Move((r, c), Move.directions['West'], jump))
+                        validmoves.append(Move((r, c), Move.directions['North'], jump))
                         x = x - 2
                         jump += 1
         return validmoves
@@ -125,9 +125,15 @@ class GameBoard:
     def toString(self):
         "turns board into a string"
         str = ""
-        for i in range(0, self.width):
-            for j in range(0, self.height):
-                if self.board[i][j] is 0:
+        for i in range(-1, self.width): #r
+            for j in range(-1, self.height): #c
+                if i is -1 and j is -1:
+                    str += "0  "
+                elif i is -1:
+                    str += (j+1).__str__() + "  "
+                elif j is -1:
+                    str += (i+1).__str__() + "  "
+                elif self.board[i][j] is 0:
                     str += "_  "
                 elif self.board[i][j] is 1:
                     str += "w  "
