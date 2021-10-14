@@ -144,15 +144,20 @@ class GameBoard:
         return str
 
     def gameOver(self):
-        "checks if game is over"
-        return len(self.validMoves(1)) is 0 or len(self.validMoves(2)) is 0
+        "checks if game is over, returns 0 if game not over, or player index of winner"
+        if not len(self.validMoves(1)) is 0 or len(self.validMoves(2)) is 0:
+            return 0
+        elif len(self.validMoves(1)) > 0:
+            return 1
+        elif len(self.validMoves(2)) > 0:
+            return 2
 
     def generateSuccessors(self, player_index):
-        "returns a list of possible next boards given current players index"
+        "returns a list of successor boards  & the actions taken for those boards given current players index"
         successors = list()
         valid_moves = self.validMoves(player_index)
         for i in valid_moves:
             boardcopy = self.copy()
             newboard = boardcopy.fooBoard(i)
-            successors.append(newboard)
+            successors.append((newboard, i))
         return successors
