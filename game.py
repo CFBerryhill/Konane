@@ -28,8 +28,8 @@ if __name__ == '__main__':
     board = GameBoard()
     print(board.toString())
 
-    agent1 = HumanAgent(1)
-    agent2 = RandomAgent(2)
+    agent1 = RandomAgent(1)
+    agent2 = MiniMaxAgent(2)
 
     #remove starting tokens
     empty = (-1,-1)
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     turncnt = 1
     while not board.gameOver():
-        print turncnt % 2 + 1, " players turn"
+        print "player ", (turncnt % 2) + 1, "'s turn"
         if turncnt % 2 == 0:
             move = agent2.getMove(board)
             board.fooBoard(move)
@@ -54,6 +54,7 @@ if __name__ == '__main__':
         print(board.toString())
         turncnt += 1
 
+    print board.gameOver().__str__() + " has won!"
 
 
 

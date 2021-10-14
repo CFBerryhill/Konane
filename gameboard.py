@@ -1,3 +1,6 @@
+from copy import copy
+
+
 class Directions:
     NORTH = 'North'
     SOUTH = 'South'
@@ -50,8 +53,11 @@ class GameBoard:
     def __setitem__(self, tile, item):
         self.board[tile[0]][tile[1]] = item
 
+    initial_removable_tiles = [(0, 0), (3, 3), (4, 4), (7, 7)]
+
     def removeTile(self, tile):
         self.__setitem__(tile, 0)
+        return self
 
     def fooBoard(self, move):
         color = self.__getitem__(move.tile)
@@ -64,8 +70,12 @@ class GameBoard:
         self.__setitem__(newtile, color)
         return self
 
-    def copy(self):
-        return self.copy()
+    def copy_board(self):
+        newboard = GameBoard()
+        for r in range(0, self.height):
+            for c in range(0, self.width):
+                newboard.__setitem__((r, c), self.board[r][c])
+        return newboard
 
     def validMoves(self, player_index):
         "creates a list of valid moves"
@@ -157,7 +167,7 @@ class GameBoard:
         successors = list()
         valid_moves = self.validMoves(player_index)
         for i in valid_moves:
-            boardcopy = self.copy()
+            boardcopy = self.copy_board()
             newboard = boardcopy.fooBoard(i)
             successors.append((newboard, i))
         return successors

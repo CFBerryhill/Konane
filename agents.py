@@ -1,6 +1,7 @@
 from game import Agent
 from random import randrange
 from gameboard import Move
+from gameboard import GameBoard
 
 
 class HumanAgent(Agent):
@@ -55,8 +56,7 @@ class RandomAgent(Agent):
 
     def getStartingRemoval(self, board, tile):
         if tile[0] is -1 and tile[1] is -1:
-            validoptions = [(0, 0), (3, 3), (4, 4), (7, 7)]
-            return validoptions[randrange(0, len(validoptions))]
+            return board.initial_removable_tiles[randrange(0, len(board.initial_removable_tiles))]
         else:
             validoptions = list()
             if tile[0] - 1 >= 0:
@@ -79,7 +79,29 @@ class MiniMaxAgent(Agent):
 
     def getMove(self, board):
         ""
-        self.miniMax(board, self.init_depth, self.index, -69, 69) #no max/min ints in python
+        return self.miniMax(board, self.init_depth, self.index, -69, 69) #no max/min ints in python
+
+    def getStartingRemoval(self, board, tile):
+        if tile[0] is -1 and tile[1] is -1:
+            boards = self.initial_boardstates()
+            maxsucc = boards[0]
+            currmax = -69
+            for b in boards:
+                v = self.maximize(b[0], self.init_depth, self.index, -69, 69)
+                if currmax < v:
+                    currmax = v
+                    maxsucc = b
+            return maxsucc[1]
+        else:
+            boards = self.secondary_initial_boardstates(board, tile)
+            maxsucc = boards[0]
+            currmax = -69
+            for b in boards:
+                v = self.maximize(b[0], self.init_depth, self.index, -69, 69)
+                if currmax < v:
+                    currmax = v
+                    maxsucc = b
+            return maxsucc[1]
 
     def miniMax(self, board, depth, player_index, alpha, beta):
         ""
@@ -104,7 +126,7 @@ class MiniMaxAgent(Agent):
         #currmax
         currmax = -69
         for s in successors:
-            currmax = max(currmax, self.minimize(s[0],depth-1, (player_index % 2)+1, alpha, beta))
+            currmax = max(currmax, self.minimize(s[0], depth-1, (player_index % 2)+1, alpha, beta))
         return currmax
 
     def minimize(self, board, depth, player_index, alpha, beta):
@@ -122,3 +144,33 @@ class MiniMaxAgent(Agent):
     def null_heuristic(self, board):
         "returns a-non heuristic evaluation of the board"
         return board.gameOver
+
+    def initial_boardstates(self):
+        board = GameBoard()
+        options = board.initial_removable_tiles
+        boards = list()
+        for tile in options:
+            boardcopy_0 = board.copy_board()
+            newboard = boardcopy_0.removeTile(tile)
+            boards.__iadd__(self.secondary_initial_boardstates(newboard, tile))
+        return boards
+
+    def secondary_initial_boardstates(self, board, tile):
+        boards = list()
+        if tile[0] - 1 >= 0:
+            newtile = (tile[0] - 1, tile[1])
+            boardcopy = board.copy_board()
+            boards.append((boardcopy.removeTile((tile[0] - 1, tile[1])), newtile))
+        if tile[0] + 1 <= 7:
+            newtile = (tile[0] + 1, tile[1])
+            boardcopy = board.copy_board()
+            boards.append((boardcopy.removeTile((tile[0] + 1, tile[1])), newtile))
+        if tile[1] - 1 >= 0:
+            newtile = (tile[0], tile[1] - 1)
+            boardcopy = board.copy_board()
+            boards.append((boardcopy.removeTile((tile[0], tile[1] - 1)), newtile))
+        if tile[1] + 1 <= 7:
+            newtile = (tile[0], tile[1] + 1)
+            boardcopy = board.copy_board()
+            boards.append((boardcopy.removeTile((tile[0], tile[1] + 1)), newtile))
+        return boards
