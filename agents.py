@@ -1,8 +1,30 @@
-from game import Agent
 from random import randrange
 from gameboard import Move
 from gameboard import GameBoard
 
+import heapq, random
+import sys
+import inspect
+
+
+def null_heuristic(self, board):
+    "returns a-non heuristic evaluation of the board"
+    return board.gameOver
+
+class Agent:
+  def __init__(self, index=0, heuristic=null_heuristic):
+    self.index = index
+    self.heuristic = heuristic
+
+  def getMove(self, board):
+      raiseNotDefined()
+
+  def getStartingRemoval(self, board, tile):
+      raiseNotDefined()
+
+def raiseNotDefined():
+  print("Method not implemented: %s" % inspect.stack()[1][3])
+  sys.exit(1)
 
 class HumanAgent(Agent):
     "a human player interface"
@@ -75,11 +97,11 @@ class MiniMaxAgent(Agent):
     "an agent that searches for moves with minimax"
 
     #maxdepth 'macro'
-    init_depth = 5
+    init_depth = 6
 
     def getMove(self, board):
         ""
-        return self.miniMax(board, self.init_depth, self.index, -69, 69) #no max/min ints in python
+        return self.miniMax(board, self.init_depth, self.index, -69, 69)  #no max/min ints in python
 
     def getStartingRemoval(self, board, tile):
         if tile[0] is -1 and tile[1] is -1:
@@ -87,7 +109,7 @@ class MiniMaxAgent(Agent):
             maxsucc = boards[0]
             currmax = -69
             for b in boards:
-                v = self.maximize(b[0], self.init_depth, self.index, -69, 69)
+                v = self.maximize(b[0], self.init_depth, self.index, -69, 69) #max or minimize?
                 if currmax < v:
                     currmax = v
                     maxsucc = b
@@ -97,7 +119,7 @@ class MiniMaxAgent(Agent):
             maxsucc = boards[0]
             currmax = -69
             for b in boards:
-                v = self.maximize(b[0], self.init_depth, self.index, -69, 69)
+                v = self.maximize(b[0], self.init_depth, self.index, -69, 69) #max or minimize?
                 if currmax < v:
                     currmax = v
                     maxsucc = b
@@ -121,7 +143,7 @@ class MiniMaxAgent(Agent):
         ""
         #terminal test
         if depth is 0 or board.gameOver():
-            return self.null_heuristic(board)
+            return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
         #currmax
         currmax = -69
@@ -133,7 +155,7 @@ class MiniMaxAgent(Agent):
         ""
         # terminal test
         if depth is 0 or board.gameOver() is not 0:
-            return self.null_heuristic(board)
+            return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
         # currmin
         currmin = 69
@@ -141,9 +163,33 @@ class MiniMaxAgent(Agent):
             currmin = min(currmin, self.maximize(s[0], depth - 1, (player_index % 2)+1, alpha, beta))
         return currmin
 
-    def null_heuristic(self, board):
-        "returns a-non heuristic evaluation of the board"
-        return board.gameOver
+    def self_heuristic(self, board):
+        return len(board.validMoves(self.index))
+
+    def else_heuristic(self, board):
+        return len(board.validMoves((self.index % 2) + 1))
+
+    def move_diff_heuristic(self, board):
+        return len(board.validMoves(self.index)) - len(board.validMoves((self.index % 2) + 1))
+
+    def moveable_tiles_else_heuristic(self, board):
+        validmoves = board.validMoves((self.index % 2) + 1)
+        tiles = list()
+        for v in validmoves:
+            if v.tile not in tiles:
+                tiles.append(v.tile)
+        return len(tiles)
+
+    def moveable_tiles_self_heuristic(self, board):
+        validmoves = board.validMoves(self.index)
+        tiles = list()
+        for v in validmoves:
+            if v.tile not in tiles:
+                tiles.append(v.tile)
+        return len(tiles)
+
+    def moveable_tiles_diff_heuristic(self, board):
+        return self.moveable_tiles_self_heuristic(board) - self.moveable_tiles_else_heuristic(board)
 
     def initial_boardstates(self):
         board = GameBoard()

@@ -1,23 +1,7 @@
-import sys
-import inspect
 from agents import *
 from gameboard import *
 
-import heapq, random
 
-class Agent:
-  def __init__(self, index=0):
-    self.index = index
-
-  def getMove(self, board):
-      raiseNotDefined()
-
-  def getStartingRemoval(self, board, tile):
-      raiseNotDefined()
-
-def raiseNotDefined():
-  print("Method not implemented: %s" % inspect.stack()[1][3])
-  sys.exit(1)
 
 #HI PAUL!!!
 #Hi CASEY!!!
@@ -28,8 +12,8 @@ if __name__ == '__main__':
     board = GameBoard()
     print(board.toString())
 
-    agent1 = RandomAgent(1)
-    agent2 = MiniMaxAgent(2)
+    agent1 = MiniMaxAgent(1, MiniMaxAgent.moveable_tiles_diff_heuristic)
+    agent2 = MiniMaxAgent(2, MiniMaxAgent.moveable_tiles_self_heuristic)
 
     #remove starting tokens
     empty = (-1,-1)
