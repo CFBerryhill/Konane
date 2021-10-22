@@ -72,15 +72,13 @@ def run_game(agent1, agent2, board):
 if __name__ == '__main__':
     #   HEURISTIC moveable_tiles_diff_heuristic
 
-    board = GameBoard()
-    print(board.toString())
-
+    board1 = GameBoard()
     agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 2)
-    agent2 = RandomAgent(2)
+    randomagent = RandomAgent(2)
 
-    print(board.toString())
+    print(board1.toString())
 
-    winner = run_game(agent1,agent2, board)
+    winner = run_game(agent1, randomagent, board1)
 
     print winner.__str__() + " has won!"
     # Collecting Stats from this game iteration
@@ -88,6 +86,42 @@ if __name__ == '__main__':
     addCutsData()
     addStaticData()
     addGameItr(1)   # should be changed to the depth of this iteration
+
+    # All game iterations are complete for this test
+    printStats()
+    clearStats()
+
+    board2 = GameBoard()
+    agent2 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)
+
+    print(board2.toString())
+
+    winner = run_game(agent2, randomagent, board2)
+
+    print winner.__str__() + " has won!"
+    # Collecting Stats from this game iteration
+    addBFData()
+    addCutsData()
+    addStaticData()
+    addGameItr(1)  # should be changed to the depth of this iteration
+
+    # All game iterations are complete for this test
+    printStats()
+    clearStats()
+
+    board3 = GameBoard()
+    agent3 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 6)
+
+    print(board3.toString())
+
+    winner = run_game(agent3, randomagent, board3)
+
+    print winner.__str__() + " has won!"
+    # Collecting Stats from this game iteration
+    addBFData()
+    addCutsData()
+    addStaticData()
+    addGameItr(1)  # should be changed to the depth of this iteration
 
     # All game iterations are complete for this test
     printStats()
