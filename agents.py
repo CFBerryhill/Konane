@@ -103,26 +103,21 @@ def raiseNotDefined():
 cuts = 0
 staticCalcs = 0
 
-
 def addCut():
     global cuts
     cuts += 1
 
-
-def getCut():
+def getCuts():
     global cuts
     return cuts
-
 
 def addStaticCalc():
     global staticCalcs
     staticCalcs += 1
 
-
 def getStaticCalc():
     global staticCalcs
     return staticCalcs
-
 
 class HumanAgent(Agent):
     "a human player interface"

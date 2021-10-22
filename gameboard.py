@@ -44,7 +44,14 @@ def addBranchFactor(successors):
     branches = branches + len(successors)
     global branchCount
     branchCount += 1
-    return branches / branchCount       # return current average branching factor for this game
+    # return branches / branchCount       # return current average branching factor for this game
+
+def getAverage():
+    global branches, branchCount
+    return branches / branchCount
+    # reset global varibales for next test
+    branches = 0
+    branchCount = 0
 
 class GameBoard:
 

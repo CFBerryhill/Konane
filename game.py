@@ -9,15 +9,15 @@ staticEvals = [0] 	# number of static evaluations for each iteration
 
 def addBFData(gameBoard):
     global bfValues
-    bfValues.append(gameBoard.branches)
+    bfValues.append(gameBoard.getAverage())
 
 def addCutsData(agent):
     global cuts
-    cuts.append(agent.cuts)
+    cuts.append(agent.getCuts())
 
 def addStaticData(agent):
     global staticEvals
-    staticEvals.append(agent.staticCalcs)
+    staticEvals.append(agent.getstaticCalcs())
 
 def addGameItr(depth):
     global gameItr
@@ -31,7 +31,7 @@ def printStats():
     for x in gameItr:
         print x + " " + bfValues[gameItr.index[x]]
 
-    print "Number of Cuts"
+    print "Number of Cuts/n"
     for x in gameItr:
         print x + " " + cuts[gameItr.index[x]]
 
@@ -97,6 +97,6 @@ if __name__ == '__main__':
     printStats()
     clearStats()
 
-    # Test with next algorthim below
+    # Test with next algorthim next
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
