@@ -166,12 +166,10 @@ class GameBoard:
 
         return str
 
-    def gameOver(self):
+    def gameOver(self, playerindex):
         "checks if game is over, returns 0 if game not over, or player index of winner"
-        if len(self.validMoves(1)) is 0:
-            return 2
-        if len(self.validMoves(2)) is 0:
-            return 1
+        if len(self.validMoves(playerindex)) is 0:
+            return (playerindex % 2) + 1
         else:
             return 0
 

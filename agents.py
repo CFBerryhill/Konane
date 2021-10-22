@@ -47,10 +47,10 @@ def moveable_tiles_self_heuristic(self, board):
 
 
 def moveable_tiles_diff_heuristic(self, board):
-    else_len = self.moveable_tiles_else_heuristic(board)
+    else_len = moveable_tiles_else_heuristic(self, board)
     if else_len is 0:
         return self.infin
-    return self.moveable_tiles_self_heuristic(board) - else_len
+    return moveable_tiles_self_heuristic(self, board) - else_len
 
 def initial_boardstates():
     board = GameBoard()
@@ -83,9 +83,10 @@ def secondary_initial_boardstates(board, tile):
     return boards
 
 class Agent:
-    def __init__(self, index=0, heuristic=null_heuristic):
+    def __init__(self, index=0, heuristic=null_heuristic, depth=2):
         self.index = index
         self.heuristic = heuristic
+        self.depth = depth
 
     def getMove(self, board):
         raiseNotDefined()
@@ -190,12 +191,12 @@ class RandomAgent(Agent):
             return validoptions[randrange(0, len(validoptions))]
 
 class MiniMaxAgent_noprune(Agent):
-    init_depth = 6
-    infin = 420
+
+    infin = 42069
 
     def getMove(self, board):
         ""
-        return self.miniMax(board, self.init_depth, self.index)  # no max/min ints in python
+        return self.miniMax(board, self.depth, self.index)  # no max/min ints in python
 
     def getStartingRemoval(self, board, tile):
         if tile[0] is -1 and tile[1] is -1:
@@ -203,7 +204,7 @@ class MiniMaxAgent_noprune(Agent):
             maxsucc = boards[0]
             currmax = -1 * self.infin
             for b in boards:
-                v = self.minimize(b[0], self.init_depth - 1, self.index)  # choose maximum of minimize
+                v = self.minimize(b[0], self.depth - 1, self.index)  # choose maximum of minimize
                 if currmax > v:
                     currmax = v
                     maxsucc = b
@@ -213,7 +214,7 @@ class MiniMaxAgent_noprune(Agent):
             maxsucc = boards[0]
             currmax = -1 * self.infin
             for b in boards:
-                v = self.maximize(b[0], self.init_depth, self.index)  # maximize straight up
+                v = self.maximize(b[0], self.depth, self.index)  # maximize straight up
                 if currmax < v:
                     currmax = v
                     maxsucc = b
@@ -226,7 +227,7 @@ class MiniMaxAgent_noprune(Agent):
         currmax = -1 * self.infin
         maxsucc = successors[0]
         for s in successors:
-            v = self.minimize(s[0], depth - 1, (player_index % 2) + 1)
+            v = self.maximize(s[0], depth - 1, (player_index % 2) + 1)
             if currmax < v:
                 currmax = v
                 maxsucc = s
@@ -262,22 +263,20 @@ class MiniMaxAgent(Agent):
     "an agent that searches for moves with minimax"
 
     # maxdepth 'macro'
-    init_depth = 6
-    infin = 420
+    infin = 42069
 
     def getMove(self, board):
         ""
-        return self.miniMax(board, self.init_depth, self.index, -1 * self.infin,
+        return self.miniMax(board, self.depth, self.index, -1 * self.infin,
                             self.infin)  # no max/min ints in python
 
     def getStartingRemoval(self, board, tile):
         if tile[0] is -1 and tile[1] is -1:
-            boards = initial_boardstates
+            boards = initial_boardstates()
             maxsucc = boards[0]
             currmax = -1 * self.infin
             for b in boards:
-                v = self.minimize(b[0], self.init_depth - 1, self.index, -1 * self.infin,
-                                  self.infin)  # choose maximum of minimize
+                v = self.minimize(b[0], self.depth - 1, self.index, -1 * self.infin, self.infin)  # choose maximum of minimize
                 if currmax > v:
                     currmax = v
                     maxsucc = b
@@ -287,7 +286,7 @@ class MiniMaxAgent(Agent):
             maxsucc = boards[0]
             currmax = -1 * self.infin
             for b in boards:
-                v = self.maximize(b[0], self.init_depth, self.index, -1 * self.infin,
+                v = self.minimize(b[0], self.depth, self.index, -1 * self.infin,
                                   self.infin)  # maximize straight up
                 if currmax < v:
                     currmax = v
@@ -301,7 +300,7 @@ class MiniMaxAgent(Agent):
         currmax = -1 * self.infin
         maxsucc = successors[0]
         for s in successors:
-            v = self.minimize(s[0], depth - 1, (player_index % 2) + 1, alpha, beta)
+            v = self.maximize(s[0], depth - 1, (player_index % 2) + 1, alpha, beta)
             if currmax < v:
                 currmax = v
                 maxsucc = s
@@ -310,7 +309,7 @@ class MiniMaxAgent(Agent):
     def maximize(self, board, depth, player_index, alpha, beta):
         ""
         # terminal test
-        if depth is 0 or board.gameOver():
+        if depth is 0 or board.gameOver(player_index):
             addStaticCalc()
             return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
@@ -327,7 +326,7 @@ class MiniMaxAgent(Agent):
     def minimize(self, board, depth, player_index, alpha, beta):
         ""
         # terminal test
-        if depth is 0 or board.gameOver() is not 0:
+        if depth is 0 or board.gameOver((player_index % 2) + 1) is not 0:
             addStaticCalc()
             return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
