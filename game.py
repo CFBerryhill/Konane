@@ -7,17 +7,17 @@ bfValues = [0]		# average branching factor for each iteration
 cuts = [0] 		# number of cuts for each iteration
 staticEvals = [0] 	# number of static evaluations for each iteration
 
-def addBFData(gameBoard):
+def addBFData():
     global bfValues
-    bfValues.append(gameBoard.getAverage())
+    bfValues.append(getAverage())
 
-def addCutsData(agent):
+def addCutsData():
     global cuts
-    cuts.append(agent.getCuts())
+    cuts.append(getCuts())
 
-def addStaticData(agent):
+def addStaticData():
     global staticEvals
-    staticEvals.append(agent.getstaticCalcs())
+    staticEvals.append(getStaticCalc())
 
 def addGameItr(depth):
     global gameItr
@@ -28,16 +28,13 @@ def printStats():
 
     # print all stats for bf Values
     print "Average Branching Factor"
-    for x in gameItr:
-        print x + " " + bfValues[gameItr.index[x]]
+    print bfValues[0].__str__()
 
     print "Number of Cuts/n"
-    for x in gameItr:
-        print x + " " + cuts[gameItr.index[x]]
+    print cuts[0].__str__()
 
     print "Number of Static Evals"
-    for x in gameItr:
-        print x + " " + staticEvals[gameItr.index[x]]
+    print staticEvals[0].__str__()
 
 def clearStats():
     global gameItr, bfValues, cuts, staticEvals
@@ -73,12 +70,13 @@ def run_game(agent1, agent2, board):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    #   HEURISTIC moveable_tiles_diff_heuristic
 
     board = GameBoard()
     print(board.toString())
 
-    agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)
-    agent2 = MiniMaxAgent(2, move_diff_heuristic, 4)
+    agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 2)
+    agent2 = RandomAgent(2)
 
     print(board.toString())
 
@@ -86,12 +84,10 @@ if __name__ == '__main__':
 
     print winner.__str__() + " has won!"
     # Collecting Stats from this game iteration
-    addBFData(board)
-    addCutsData(agent1)
-    addStaticData(agent1)
+    addBFData()
+    addCutsData()
+    addStaticData()
     addGameItr(1)   # should be changed to the depth of this iteration
-
-    print board.gameOver().__str__() + " has won!"
 
     # All game iterations are complete for this test
     printStats()
