@@ -46,23 +46,13 @@ def clearStats():
     cuts = [0]
     staticEvals = [0]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-
-    board = GameBoard()
-    print(board.toString())
-
-    agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic,4)
-    agent2 = MiniMaxAgent(2, move_diff_heuristic,4)
-
-    #remove starting tokens
+def run_game(agent1, agent2, board):
+    # remove starting tokens
     empty = (-1, -1)
     tile = agent1.getStartingRemoval(board, empty)
     board.removeTile(tile)
     tile2 = agent2.getStartingRemoval(board, tile)
     board.removeTile(tile2)
-
-    print(board.toString())
 
     turncnt = 0
     while board.gameOver((turncnt % 2) + 1) == 0:
@@ -78,8 +68,23 @@ if __name__ == '__main__':
             print move.toString()
         turncnt += 1
         print "player ", (turncnt % 2) + 1, "'s turn"
+    return board.gameOver((turncnt % 2) + 1)
 
-    print board.gameOver((turncnt % 2) + 1).__str__() + " has won!"
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+
+    board = GameBoard()
+    print(board.toString())
+
+    agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)
+    agent2 = MiniMaxAgent(2, move_diff_heuristic, 4)
+
+    print(board.toString())
+
+    winner = run_game(agent1,agent2, board)
+
+    print winner.__str__() + " has won!"
     # Collecting Stats from this game iteration
     addBFData(board)
     addCutsData(agent1)
@@ -93,6 +98,5 @@ if __name__ == '__main__':
     clearStats()
 
     # Test with next algorthim below
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
