@@ -16,7 +16,7 @@ if __name__ == '__main__':
     agent2 = MiniMaxAgent(2, MiniMaxAgent.moveable_tiles_self_heuristic)
 
     #remove starting tokens
-    empty = (-1,-1)
+    empty = (-1, -1)
     tile = agent1.getStartingRemoval(board, empty)
     board.removeTile(tile)
     tile2 = agent2.getStartingRemoval(board, tile)
@@ -25,8 +25,9 @@ if __name__ == '__main__':
     print(board.toString())
 
     turncnt = 1
-    while not board.gameOver():
+    while board.gameOver() == 0:
         print "player ", (turncnt % 2) + 1, "'s turn"
+        print(board.toString())
         if turncnt % 2 == 0:
             move = agent2.getMove(board)
             board.fooBoard(move)
@@ -35,7 +36,6 @@ if __name__ == '__main__':
             move = agent1.getMove(board)
             board.fooBoard(move)
             print move.toString()
-        print(board.toString())
         turncnt += 1
 
     print board.gameOver().__str__() + " has won!"

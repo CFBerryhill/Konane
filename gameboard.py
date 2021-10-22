@@ -62,7 +62,7 @@ class GameBoard:
     def fooBoard(self, move):
         color = self.__getitem__(move.tile)
         self.removeTile(move.tile)          # sets start to 0
-        for i in range(move.jumps + 1):     # remove all pieces in between start and end
+        for i in range(0, move.jumps + 1):     # remove all pieces in between start and end
             removetile = (move.tile[0] + ((move.dir[0])/2 * i),
                        move.tile[1] + ((move.dir[1])/2) * i)
             self.removeTile(removetile)
@@ -155,12 +155,12 @@ class GameBoard:
 
     def gameOver(self):
         "checks if game is over, returns 0 if game not over, or player index of winner"
-        if not len(self.validMoves(1)) is 0 or len(self.validMoves(2)) is 0:
-            return 0
-        elif len(self.validMoves(1)) > 0:
-            return 1
-        elif len(self.validMoves(2)) > 0:
+        if len(self.validMoves(1)) is 0:
             return 2
+        if len(self.validMoves(2)) is 0:
+            return 1
+        else:
+            return 0
 
     def generateSuccessors(self, player_index):
         "returns a list of successor boards  & the actions taken for those boards given current players index"

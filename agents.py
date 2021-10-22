@@ -149,6 +149,10 @@ class MiniMaxAgent(Agent):
         currmax = -69
         for s in successors:
             currmax = max(currmax, self.minimize(s[0], depth-1, (player_index % 2)+1, alpha, beta))
+            #PRUNING
+            alpha = max(currmax, alpha)
+            if currmax >= beta:
+                break #break recursion
         return currmax
 
     def minimize(self, board, depth, player_index, alpha, beta):
@@ -161,6 +165,10 @@ class MiniMaxAgent(Agent):
         currmin = 69
         for s in successors:
             currmin = min(currmin, self.maximize(s[0], depth - 1, (player_index % 2)+1, alpha, beta))
+            #PRUNING
+            beta = max(currmin, beta)
+            if currmin <= alpha:
+                break#break recursion
         return currmin
 
     def self_heuristic(self, board):
