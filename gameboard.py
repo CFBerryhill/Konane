@@ -38,13 +38,13 @@ class Move:
 branches = 0        # sum of all branching
 branchCount = 0     # number of branched nodes
 
-def average(successors):
+def addBranchFactor(successors):
     "accumulates total number of branches and the number of nodes that branched"
     global branches
     branches = branches + len(successors)
     global branchCount
     branchCount += 1
-    return branches / branchCount
+    return branches / branchCount       # return current average branching factor for this game
 
 class GameBoard:
 
@@ -182,6 +182,6 @@ class GameBoard:
             newboard = boardcopy.fooBoard(i)
             successors.append((newboard, i))
 
-        average(successors)
+        addBranchFactor(successors)
 
         return successors
