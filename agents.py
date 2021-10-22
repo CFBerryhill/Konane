@@ -127,14 +127,14 @@ class MiniMaxAgent(Agent):
     def getStartingRemoval(self, board, tile):
         if tile[0] is -1 and tile[1] is -1:
             boards = self.initial_boardstates()
-            maxsucc = boards[0]
-            currmax = -69
+            minsucc = boards[0]
+            currmin = 69
             for b in boards:
-                v = self.maximize(b[0], self.init_depth, self.index, -69, 69) #max or minimize?
-                if currmax < v:
-                    currmax = v
-                    maxsucc = b
-            return maxsucc[1]
+                v = self.minimize(b[0], self.init_depth-1, self.index, -69, 69) #max or minimize?
+                if currmin < v:
+                    currmin = v
+                    minsucc = b
+            return minsucc[2]
         else:
             boards = self.secondary_initial_boardstates(board, tile)
             maxsucc = boards[0]
@@ -237,17 +237,17 @@ class MiniMaxAgent(Agent):
         if tile[0] - 1 >= 0:
             newtile = (tile[0] - 1, tile[1])
             boardcopy = board.copy_board()
-            boards.append((boardcopy.removeTile((tile[0] - 1, tile[1])), newtile))
+            boards.append((boardcopy.removeTile((tile[0] - 1, tile[1])), newtile, tile))
         if tile[0] + 1 <= 7:
             newtile = (tile[0] + 1, tile[1])
             boardcopy = board.copy_board()
-            boards.append((boardcopy.removeTile((tile[0] + 1, tile[1])), newtile))
+            boards.append((boardcopy.removeTile((tile[0] + 1, tile[1])), newtile, tile))
         if tile[1] - 1 >= 0:
             newtile = (tile[0], tile[1] - 1)
             boardcopy = board.copy_board()
-            boards.append((boardcopy.removeTile((tile[0], tile[1] - 1)), newtile))
+            boards.append((boardcopy.removeTile((tile[0], tile[1] - 1)), newtile, tile))
         if tile[1] + 1 <= 7:
             newtile = (tile[0], tile[1] + 1)
             boardcopy = board.copy_board()
-            boards.append((boardcopy.removeTile((tile[0], tile[1] + 1)), newtile))
+            boards.append((boardcopy.removeTile((tile[0], tile[1] + 1)), newtile, tile))
         return boards

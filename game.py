@@ -1,11 +1,6 @@
 from agents import *
 from gameboard import *
 
-
-
-#HI PAUL!!!
-#Hi CASEY!!!
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
@@ -13,7 +8,7 @@ if __name__ == '__main__':
     print(board.toString())
 
     agent1 = MiniMaxAgent(1, MiniMaxAgent.moveable_tiles_diff_heuristic)
-    agent2 = MiniMaxAgent(2, MiniMaxAgent.moveable_tiles_self_heuristic)
+    agent2 = MiniMaxAgent(2, MiniMaxAgent.move_diff_heuristic)
 
     #remove starting tokens
     empty = (-1, -1)

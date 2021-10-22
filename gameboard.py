@@ -75,9 +75,9 @@ class GameBoard:
     def fooBoard(self, move):
         color = self.__getitem__(move.tile)
         self.removeTile(move.tile)          # sets start to 0
-        for i in range(0, move.jumps + 1):     # remove all pieces in between start and end
-            removetile = (move.tile[0] + ((move.dir[0])/2 * i),
-                       move.tile[1] + ((move.dir[1])/2) * i)
+        for i in range(0, move.jumps):     # remove all pieces in between start and end #DOESNT WORK
+            removetile = (move.tile[0] + (((move.dir[0])/2) + (i*move.dir[0])),
+                       move.tile[1] + ((move.dir[1])/2) + (i*move.dir[1]))
             self.removeTile(removetile)
         newtile = (move.tile[0] + (move.jumps * move.dir[0]), move.tile[1] + (move.jumps * move.dir[1]))
         self.__setitem__(newtile, color)
