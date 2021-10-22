@@ -58,14 +58,14 @@ class HumanAgent(Agent):
             Move.directions[dir]
         except KeyError:
             print "invalid direction"
-            self.getMove(board)
+            return self.getMove(board)
         move = Move((tile[0]-1, tile[1]-1), Move.directions[dir], jumps)
         validmoves = board.validMoves(self.index)
         if move in validmoves:
             return move
         else:
             print "invalid move"
-            self.getMove(board)
+            return self.getMove(board)
 
     def getStartingRemoval(self, board, tile):
         if tile[0] is -1 and tile[1] is -1:

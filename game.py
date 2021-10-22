@@ -7,7 +7,7 @@ if __name__ == '__main__':
     board = GameBoard()
     print(board.toString())
 
-    agent1 = MiniMaxAgent(1, MiniMaxAgent.moveable_tiles_diff_heuristic)
+    agent1 = HumanAgent(1)
     agent2 = MiniMaxAgent(2, MiniMaxAgent.move_diff_heuristic)
 
     #remove starting tokens
@@ -21,7 +21,6 @@ if __name__ == '__main__':
 
     turncnt = 1
     while board.gameOver() == 0:
-        print "player ", (turncnt % 2) + 1, "'s turn"
         print(board.toString())
         if turncnt % 2 == 0:
             move = agent2.getMove(board)
@@ -32,6 +31,7 @@ if __name__ == '__main__':
             board.fooBoard(move)
             print move.toString()
         turncnt += 1
+        print "player ", (turncnt % 2) + 1, "'s turn"
 
     print board.gameOver().__str__() + " has won!"
 
