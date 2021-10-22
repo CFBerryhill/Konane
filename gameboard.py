@@ -33,6 +33,19 @@ class Move:
     def toString(self):
         return "(" + str(self.tile[0]+1) + ", " + str(self.tile[1]+1) + "), " + str(self.dir) + ", " + str(self.jumps)
 
+
+class Stats():
+
+    def __init__(self):
+        self.branches = 0  # sum of all branching
+        self.branchCount = 0  # number of branched nodes
+
+    def average(self, successors):
+        "accumulates total number of branches and the number of nodes that branched"
+        self.branches = self.branches + len(successors)
+        self.branchCount += 1
+        return self.branches / self.branchCount
+
 class GameBoard:
 
     def __init__(self):
@@ -170,4 +183,7 @@ class GameBoard:
             boardcopy = self.copy_board()
             newboard = boardcopy.fooBoard(i)
             successors.append((newboard, i))
+
+        Stats.average(successors)
+
         return successors

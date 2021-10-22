@@ -26,6 +26,24 @@ def raiseNotDefined():
   print("Method not implemented: %s" % inspect.stack()[1][3])
   sys.exit(1)
 
+class AgentStats():
+
+    def __init__(self):
+        self.cuts = 0
+        self.staticCalcs = 0
+
+    def addCut(self):
+        self.cuts += 1
+
+    def getCut(self):
+        return self.cuts
+
+    def addStaticCalc(self):
+        self.staticCalcs += 1
+
+    def getStaticCalc(self):
+        return self.staticCalcs
+
 class HumanAgent(Agent):
     "a human player interface"
     def getMove(self, board):
