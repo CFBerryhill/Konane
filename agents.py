@@ -26,23 +26,26 @@ def raiseNotDefined():
   print("Method not implemented: %s" % inspect.stack()[1][3])
   sys.exit(1)
 
-class AgentStats():
 
-    def __init__(self):
-        self.cuts = 0
-        self.staticCalcs = 0
 
-    def addCut(self):
-        self.cuts += 1
+cuts = 0
+staticCalcs = 0
 
-    def getCut(self):
-        return self.cuts
+def addCut():
+    global cuts
+    cuts += 1
 
-    def addStaticCalc(self):
-        self.staticCalcs += 1
+def getCut():
+    global cuts
+    return cuts
 
-    def getStaticCalc(self):
-        return self.staticCalcs
+def addStaticCalc():
+    global staticCalcs
+    staticCalcs += 1
+
+def getStaticCalc():
+    global staticCalcs
+    return staticCalcs
 
 class HumanAgent(Agent):
     "a human player interface"
@@ -161,6 +164,7 @@ class MiniMaxAgent(Agent):
         ""
         #terminal test
         if depth is 0 or board.gameOver():
+            addStaticCalc()
             return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
         #currmax
@@ -177,6 +181,7 @@ class MiniMaxAgent(Agent):
         ""
         # terminal test
         if depth is 0 or board.gameOver() is not 0:
+            addStaticCalc()
             return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
         # currmin
