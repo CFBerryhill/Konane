@@ -7,8 +7,8 @@ if __name__ == '__main__':
     board = GameBoard()
     print(board.toString())
 
-    agent1 = HumanAgent(1)
-    agent2 = MiniMaxAgent(2, MiniMaxAgent.move_diff_heuristic)
+    agent1 = MiniMaxAgent(1, move_diff_heuristic)
+    agent2 = MiniMaxAgent(2, moveable_tiles_diff_heuristic)
 
     #remove starting tokens
     empty = (-1, -1)
