@@ -61,65 +61,59 @@ def run_game(agent1, agent2, board):
             board.fooBoard(move)
             print move.toString()
         turncnt += 1
-        print "player ", (turncnt % 2) + 1, "'s turn"
-    return board.gameOver((turncnt % 2) + 1)
+    winner = board.gameOver((turncnt % 2) + 1)
+    print winner.__str__() + " has won!"
+    # Collecting Stats from this game iteration
+    addBFData()
+    addCutsData()
+    addStaticData()
+
+    # All game iterations are complete for this test
+    printStats()
+    clearStats()
+    return winner
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     #   HEURISTIC moveable_tiles_diff_heuristic
 
+    #   MINIMAX ALPHA BETA 2
     board1 = GameBoard()
     agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 2)
     randomagent = RandomAgent(2)
 
     print(board1.toString())
 
-    winner = run_game(agent1, randomagent, board1)
-
-    print winner.__str__() + " has won!"
-    # Collecting Stats from this game iteration
-    addBFData()
-    addCutsData()
-    addStaticData()
-
-    # All game iterations are complete for this test
-    printStats()
-    clearStats()
-
+    #   MINIMAX ALPHA BETA 4
     board2 = GameBoard()
     agent2 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)
 
     print(board2.toString())
 
-    winner = run_game(agent2, randomagent, board2)
-
-    print winner.__str__() + " has won!"
-    # Collecting Stats from this game iteration
-    addBFData()
-    addCutsData()
-    addStaticData()
-
-    # All game iterations are complete for this test
-    printStats()
-    clearStats()
-
+    #   MINIMAX ALPHA BETA 6
     board3 = GameBoard()
     agent3 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 6)
 
     print(board3.toString())
 
-    winner = run_game(agent3, randomagent, board3)
+    #   MINIMAX NO PRUNE 2
+    board4 = GameBoard()
+    agent4 = MiniMaxAgent_noprune(1, moveable_tiles_diff_heuristic, 2)
 
-    print winner.__str__() + " has won!"
-    # Collecting Stats from this game iteration
-    addBFData()
-    addCutsData()
-    addStaticData()
+    print(board4.toString())
 
-    # All game iterations are complete for this test
-    printStats()
-    clearStats()
+    #   MINIMAX NOPRUNE 4
+    board5 = GameBoard()
+    agent5 = MiniMaxAgent_noprune(1, moveable_tiles_diff_heuristic, 4)
+
+    print(board5.toString())
+
+    #   MINIMAX ALPHA BETA 6
+    board6 = GameBoard()
+    agent6 = MiniMaxAgent_noprune(1, moveable_tiles_diff_heuristic, 6)
+
+    print(board6.toString())
 
     # Test with next algorthim next
 

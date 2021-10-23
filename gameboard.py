@@ -48,9 +48,6 @@ def addBranchFactor(successors):
 def getAverage():
     global branches, branchCount
     return branches / branchCount
-    # reset global varibales for next test
-    branches = 0
-    branchCount = 0
 
 def resetBF():
     global branches, branchCount

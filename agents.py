@@ -241,7 +241,7 @@ class MiniMaxAgent_noprune(Agent):
     def maximize(self, board, depth, player_index):
         ""
         # terminal test
-        if depth is 0 or board.gameOver():
+        if depth is 0 or board.gameOver(player_index):
             addStaticCalc()
             return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
@@ -254,7 +254,7 @@ class MiniMaxAgent_noprune(Agent):
     def minimize(self, board, depth, player_index):
         ""
         # terminal test
-        if depth is 0 or board.gameOver() is not 0:
+        if depth is 0 or board.gameOver((player_index % 2) + 1) is not 0:
             addStaticCalc()
             return self.heuristic(self, board)
         successors = board.generateSuccessors(player_index)
