@@ -100,26 +100,31 @@ def raiseNotDefined():
     sys.exit(1)
 
 
-cuts = 0
-staticCalcs = 0
+cuts = 0            # the number of cuts made by the minimax algorithm with a b pruning
+staticCalcs = 0     # the number of static evaluations made by the minimax algorithm
 
 def addCut():
+    "Adds one to the count of cuts made by the minimax algorithm"
     global cuts
     cuts += 1
 
 def getCuts():
+    "Returns cuts: the count of cuts made by the minimax algorithm"
     global cuts
     return cuts
 
 def addStaticCalc():
+    "Adds one to the count of static evaluations made by the minimax algorithm"
     global staticCalcs
     staticCalcs += 1
 
 def getStaticCalc():
+    "Returns staticCalcs: the count of static evaluations made by the minimax algorithm"
     global staticCalcs
     return staticCalcs
 
 def resetAgentStats():
+    "Resets the global variables containing the counts for cuts and static evaluations"
     global staticCalcs, cuts
     staticCalcs = 0
     cuts = 0

@@ -35,16 +35,15 @@ class Move:
 
 
 
-branches = 0        # sum of all branching
-branchCount = 0     # number of branched nodes
+branches = 0        # sum of all branches
+branchCount = 0     # number times a node branched
 
 def addBranchFactor(successors):
-    "accumulates total number of branches and the number of nodes that branched"
+    "Accumulates total number of branches and the number of nodes that branched"
     global branches
     branches = branches + len(successors)
     global branchCount
     branchCount += 1
-    # return branches / branchCount       # return current average branching factor for this game
 
 def getAverage():
     global branches, branchCount

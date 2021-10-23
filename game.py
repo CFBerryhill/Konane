@@ -37,8 +37,8 @@ def clearStats():
     cuts = 0
     staticEvals = 0
 
-    resetBF()
-    resetAgentStats()
+    resetBF()           # Sets the statistic values in the gameboard to 0
+    resetAgentStats()   # sets the statistic values in agent to 0
 
 def run_game(agent1, agent2, board):
     # remove starting tokens
