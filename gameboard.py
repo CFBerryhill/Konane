@@ -53,6 +53,12 @@ def getAverage():
     branches = 0
     branchCount = 0
 
+def resetBF():
+    global branches, branchCount
+    # reset global varibales for next test
+    branches = 0
+    branchCount = 0
+
 class GameBoard:
 
     def __init__(self):

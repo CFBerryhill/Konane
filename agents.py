@@ -119,6 +119,11 @@ def getStaticCalc():
     global staticCalcs
     return staticCalcs
 
+def resetAgentStats():
+    global staticCalcs, cuts
+    staticCalcs = 0
+    cuts = 0
+
 class HumanAgent(Agent):
     "a human player interface"
 
@@ -315,6 +320,8 @@ class MiniMaxAgent(Agent):
             # PRUNING
             alpha = max(currmax, alpha)
             if currmax >= beta:
+                # ADD ONE TO CUT STAT???
+                addCut()
                 break  # break recursion
         return currmax
 
@@ -332,5 +339,6 @@ class MiniMaxAgent(Agent):
             # PRUNING
             beta = max(currmin, beta)
             if currmin <= alpha:
+                addCut()
                 break  # break recursion
         return currmin

@@ -2,46 +2,43 @@ from agents import *
 from gameboard import *
 
 
-gameItr = [0]		# list {1, 2, 3, ..., n} n = number of iterations
-bfValues = [0]		# average branching factor for each iteration
-cuts = [0] 		# number of cuts for each iteration
-staticEvals = [0] 	# number of static evaluations for each iteration
+bfValues = -1		# average branching factor for each iteration
+cuts = -1 		# number of cuts for each iteration
+staticEvals = -1 	# number of static evaluations for each iteration
 
 def addBFData():
     global bfValues
-    bfValues.append(getAverage())
+    bfValues = getAverage()
 
 def addCutsData():
     global cuts
-    cuts.append(getCuts())
+    cuts = getCuts()
 
 def addStaticData():
     global staticEvals
-    staticEvals.append(getStaticCalc())
-
-def addGameItr(depth):
-    global gameItr
-    gameItr.append(depth)
+    staticEvals = getStaticCalc()
 
 def printStats():
-    global gameItr, bfValues, cuts, staticEvals
+    global bfValues, cuts, staticEvals
 
     # print all stats for bf Values
     print "Average Branching Factor"
-    print bfValues[0].__str__()
+    print bfValues.__str__()
 
-    print "Number of Cuts/n"
-    print cuts[0].__str__()
+    print "Number of Cuts"
+    print cuts.__str__()
 
     print "Number of Static Evals"
-    print staticEvals[0].__str__()
+    print staticEvals.__str__()
 
 def clearStats():
-    global gameItr, bfValues, cuts, staticEvals
-    gameItr = [0]
-    bfValues = [0]
-    cuts = [0]
-    staticEvals = [0]
+    global bfValues, cuts, staticEvals
+    bfValues = 0
+    cuts = 0
+    staticEvals = 0
+
+    resetBF()
+    resetAgentStats()
 
 def run_game(agent1, agent2, board):
     # remove starting tokens
@@ -85,7 +82,6 @@ if __name__ == '__main__':
     addBFData()
     addCutsData()
     addStaticData()
-    addGameItr(1)   # should be changed to the depth of this iteration
 
     # All game iterations are complete for this test
     printStats()
@@ -103,7 +99,6 @@ if __name__ == '__main__':
     addBFData()
     addCutsData()
     addStaticData()
-    addGameItr(1)  # should be changed to the depth of this iteration
 
     # All game iterations are complete for this test
     printStats()
@@ -121,7 +116,6 @@ if __name__ == '__main__':
     addBFData()
     addCutsData()
     addStaticData()
-    addGameItr(1)  # should be changed to the depth of this iteration
 
     # All game iterations are complete for this test
     printStats()
