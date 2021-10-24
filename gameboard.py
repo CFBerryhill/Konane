@@ -9,7 +9,7 @@ class Directions:
 
 
 class Move:
-
+    "Handles movement of pieces on the game board"
     def __init__(self, tile, dir, jumps):
         self.tile = tile
         self.dir = dir
@@ -81,10 +81,15 @@ class GameBoard:
     initial_removable_tiles = [(0, 0), (3, 3), (4, 4), (7, 7)]
 
     def removeTile(self, tile):
+        "Removes a piece"
         self.__setitem__(tile, 0)
         return self
 
     def fooBoard(self, move):
+        """
+            move    the move being imposed on this gameboard
+        creates a temporary version of the gameboard after a move is imposed on it
+        """
         color = self.__getitem__(move.tile)
         self.removeTile(move.tile)          # sets start to 0
         for i in range(0, move.jumps):     # remove all pieces in between start and end #DOESNT WORK
@@ -96,6 +101,7 @@ class GameBoard:
         return self
 
     def copy_board(self):
+        "copys the gameboard"
         newboard = GameBoard()
         for r in range(0, self.height):
             for c in range(0, self.width):

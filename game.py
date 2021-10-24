@@ -46,6 +46,12 @@ def clearStats():
     resetAgentStats()   # sets the statistic values in agent to 0
 
 def run_game(agent1, agent2, board):
+    """
+        agent1      player 1
+        agent2      player 2
+        board       game board configuration
+    run the game with two given agents
+    """
     # remove starting tokens
     empty = (-1, -1)
     tile = agent1.getStartingRemoval(board, empty)
