@@ -13,14 +13,17 @@ def null_heuristic(self, board):
 
 
 def self_heuristic(self, board):
+    "heuristic based on number of valid moves for this player"
     return len(board.validMoves(self.index))
 
 
 def else_heuristic(self, board):
+    "heuristic based on number of valid moves for other player"
     return len(board.validMoves((self.index % 2) + 1))
 
 
 def move_diff_heuristic(self, board):
+    "heuristic based on the difference of number of valid moves for this player against the other player"
     else_len = len(board.validMoves((self.index % 2) + 1))
     if else_len is 0:
         return self.infin
@@ -29,6 +32,7 @@ def move_diff_heuristic(self, board):
 
 
 def moveable_tiles_else_heuristic(self, board):
+    "heuristic based on number of valid moveable tiles for other player"
     validmoves = board.validMoves((self.index % 2) + 1)
     tiles = list()
     for v in validmoves:
@@ -38,6 +42,7 @@ def moveable_tiles_else_heuristic(self, board):
 
 
 def moveable_tiles_self_heuristic(self, board):
+    "heuristic based on number of valid moveable tiles for this player"
     validmoves = board.validMoves(self.index)
     tiles = list()
     for v in validmoves:
@@ -47,6 +52,7 @@ def moveable_tiles_self_heuristic(self, board):
 
 
 def moveable_tiles_diff_heuristic(self, board):
+    "heuristic based on the difference of number of valid moveable tiles for this player against the other player"
     else_len = moveable_tiles_else_heuristic(self, board)
     if else_len is 0:
         return self.infin
