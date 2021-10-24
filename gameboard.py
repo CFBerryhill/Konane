@@ -46,16 +46,19 @@ def addBranchFactor(successors):
     branchCount += 1
 
 def getAverage():
+    "get the average branching factor of the current game"
     global branches, branchCount
     return branches / branchCount
 
 def resetBF():
+    "Resets the branching factor statistic"
     global branches, branchCount
     # reset global varibales for next test
     branches = 0
     branchCount = 0
 
 class GameBoard:
+    "A single configuration of a game board with functions dictating movement and valid move options"
 
     def __init__(self):
         # w = 1, b = 2, empty = 0
