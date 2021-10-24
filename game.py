@@ -7,18 +7,22 @@ cuts = -1 		# number of cuts for each iteration
 staticEvals = -1 	# number of static evaluations for each iteration
 
 def addBFData():
+    "Gets branching factor data from the current gameboard and gets the average"
     global bfValues
     bfValues = getAverage()
 
 def addCutsData():
+    "Gets cut count data from current agent"
     global cuts
     cuts = getCuts()
 
 def addStaticData():
+    "Gets static evaluation data from current agent"
     global staticEvals
     staticEvals = getStaticCalc()
 
 def printStats():
+    "Prints the current statistics held in game"
     global bfValues, cuts, staticEvals
 
     # print all stats for bf Values
@@ -32,6 +36,7 @@ def printStats():
     print staticEvals.__str__()
 
 def clearStats():
+    "clears statistics in game, agents and gameboard"
     global bfValues, cuts, staticEvals
     bfValues = 0
     cuts = 0
