@@ -61,11 +61,11 @@ def run_game(agent1, agent2, board):
     tile2 = agent2.getStartingRemoval(board, tile)
     board.removeTile(tile2)
 
-    turncnt = 1
-    while board.gameOver((turncnt % 2) + 1) == 0:
+    turncnt = 0
+    while len(board.validMoves((turncnt % 2) + 1)) != 0:
         print "player ", (turncnt % 2) + 1, "'s turn"
         print(board.toString())
-        if turncnt % 2 == 0:
+        if turncnt % 2 == 1:
             move = agent2.getMove(board)
             board.fooBoard(move)
             print move.toString()
@@ -74,6 +74,7 @@ def run_game(agent1, agent2, board):
             board.fooBoard(move)
             print move.toString()
         turncnt += 1
+    print(board.toString())
     winner = board.gameOver((turncnt % 2) + 1)
     print winner.__str__() + " has won!"
     # Collecting Stats from this game iteration
@@ -92,10 +93,11 @@ if __name__ == '__main__':
     #   HEURISTIC moveable_tiles_diff_heuristic
 
     # GAME DAY
-    humanagent = HumanAgent(1)
-    agent2 = MiniMaxAgent(2, moveable_tiles_diff_heuristic, 4)
+    humanagent = HumanAgent(2)
+    agent2 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)
     board1 = GameBoard()
-    run_game(humanagent, agent2, board1)
+    run_game(agent2, humanagent, board1)
+
 
     """
     #   MINIMAX ALPHA BETA 2
@@ -103,8 +105,9 @@ if __name__ == '__main__':
     agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 2)
     randomagent = RandomAgent(2)
 
-    print(board1.toString())
+    run_game(agent1, randomagent, board1)
 
+    
     #   MINIMAX ALPHA BETA 4
     board2 = GameBoard()
     agent2 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)

@@ -165,18 +165,17 @@ class HumanAgent(Agent):
                 print("invalid option")
                 return self.getStartingRemoval(board, tile)
         else:
-            tile = input("N/S/E/W of " + str(tile))
-            if tile is "N":
-                return tile[0] - 1, tile[1]
-            elif tile is "S":
-                return tile[0] + 1, tile[1]
-            elif tile is "E":
-                return tile[0], tile[1] - 1
-            elif tile is "W":
-                return tile[0], tile[1] + 1
+            MAP = {
+                'n': (tile[0] - 1, tile[1]),
+                's': (tile[0] + 1, tile[1]),
+                'e': (tile[0], tile[1] + 1),
+                'w': (tile[0], tile[1] - 1)
+            }
+            key = raw_input("n/s/e/w of " + str(tile[0]+1) + ", " + str(tile[1]+1) + ":")
+            if 0 <= MAP[key][0] <= 7 and 0 <= MAP[key][1] <= 7:
+                return MAP[key]
             else:
                 return self.getStartingRemoval(board, tile)
-
 
 class RandomAgent(Agent):
     "an agent that takes random valid moves"
