@@ -54,12 +54,14 @@ def run_game(agent1, agent2, board):
     """
     # remove starting tokens
     empty = (-1, -1)
+    print(board.toString())
     tile = agent1.getStartingRemoval(board, empty)
     board.removeTile(tile)
+    print(board.toString())
     tile2 = agent2.getStartingRemoval(board, tile)
     board.removeTile(tile2)
 
-    turncnt = 0
+    turncnt = 1
     while board.gameOver((turncnt % 2) + 1) == 0:
         print "player ", (turncnt % 2) + 1, "'s turn"
         print(board.toString())
@@ -89,6 +91,13 @@ def run_game(agent1, agent2, board):
 if __name__ == '__main__':
     #   HEURISTIC moveable_tiles_diff_heuristic
 
+    # GAME DAY
+    humanagent = HumanAgent(1)
+    agent2 = MiniMaxAgent(2, moveable_tiles_diff_heuristic, 4)
+    board1 = GameBoard()
+    run_game(humanagent, agent2, board1)
+
+    """
     #   MINIMAX ALPHA BETA 2
     board1 = GameBoard()
     agent1 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 2)
@@ -127,5 +136,6 @@ if __name__ == '__main__':
     print(board6.toString())
 
     # Test with next algorthim next
+    """
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
