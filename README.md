@@ -4,7 +4,8 @@ run through main in game.py
 TO RUN: in main in game.py, construct a board and 2 players, 
 and run game using run_game(agent1, agent2, board) which
 will run the game and print statstics at the end. Submitted
-version currently runs 6 games, 3 games at depths 2,4,6 for 
+version currently runs against a human player. There are also 
+commented out configurations for 6 games, 3 games at depths 2,4,6 for 
 the alpha/beta pruning player and no_prune player respectively 
 playing against a random agent.
 

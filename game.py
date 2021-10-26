@@ -111,30 +111,35 @@ if __name__ == '__main__':
     #   MINIMAX ALPHA BETA 4
     board2 = GameBoard()
     agent2 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 4)
+    run_game(agent2, randomagent, board2)
 
     print(board2.toString())
 
     #   MINIMAX ALPHA BETA 6
     board3 = GameBoard()
     agent3 = MiniMaxAgent(1, moveable_tiles_diff_heuristic, 6)
-
+    run_game(agent3, randomagent, board3)
+    
     print(board3.toString())
 
     #   MINIMAX NO PRUNE 2
     board4 = GameBoard()
     agent4 = MiniMaxAgent_noprune(1, moveable_tiles_diff_heuristic, 2)
+    run_game(agent4, randomagent, board4)
 
     print(board4.toString())
 
     #   MINIMAX NOPRUNE 4
     board5 = GameBoard()
     agent5 = MiniMaxAgent_noprune(1, moveable_tiles_diff_heuristic, 4)
+    run_game(agent5, randomagent, board5)
 
     print(board5.toString())
 
     #   MINIMAX ALPHA BETA 6
     board6 = GameBoard()
     agent6 = MiniMaxAgent_noprune(1, moveable_tiles_diff_heuristic, 6)
+    run_game(agent6, randomagent, board6)
 
     print(board6.toString())
 
